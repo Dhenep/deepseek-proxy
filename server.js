@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
 // BURAYA DEEPSEEK API ANAHTARINI YAZ
 const DEEPSEEK_API_KEY = 'sk-e21b6c498f854c909e9818a8d42ba59a';
@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 app.post('/v1/chat/completions', async (req, res) => {
   try {
     const { messages, model = 'deepseek-chat', stream = false, max_tokens = 4000 } = req.body;
-
+    
     const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -77,6 +77,7 @@ app.get('/v1/models', (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Sunucu çalışıyor: http://localhost:${PORT}`);
+  console.log(`🌐 Port: ${PORT}`);
 });
